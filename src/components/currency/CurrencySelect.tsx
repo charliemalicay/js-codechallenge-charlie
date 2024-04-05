@@ -34,9 +34,9 @@ const CurrencySelect = ({
 
   // Render
   return (
-    <div>
+    <div className="modal-select">
       <label>
-        Currency
+        <p>Currency</p>
         <Select
           options={data}
           defaultValue={defaultValue}

@@ -36,17 +36,17 @@ const LanguageSelect = ({
 
   // Render
   return (
-    <div>
+    <div className="modal-select">
       <label>
-        Language
+        <p>Language</p>
         <Select
-          options={data}
-          defaultValue={defaultValue}
-          onChange={(newValue: any) => {
-            if (onChange) onChange(
+            options={data}
+            defaultValue={defaultValue}
+            onChange={(newValue: any) => {
+              if (onChange) onChange(
                 (prevState: AppSettingsTypes) => (
                     {...prevState, language: newValue!.value}
-                ));
+                  ));
           }}
         />
       </label>
