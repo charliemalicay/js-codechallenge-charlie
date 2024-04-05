@@ -5,6 +5,8 @@ import LanguageSelect, { DEFAULT_LANGUAGE } from "../language/LanguageSelect";
 import CurrencySelect, { DEFAULT_CURRENCY } from "../currency/CurrencySelect";
 import SettingsButton from "../widgets/SettingsButton";
 
+import '../../styles/main.css';
+
 /* --- [TASK] ---
 Changes on modal are only applied on SAVE
 
@@ -184,7 +186,8 @@ const SettingsSelector = (): JSX.Element => {
       {MemoSettingsButton}
 
       {/* Modal */}
-      <Modal isOpen={modalIsOpen}>
+      <Modal isOpen={modalIsOpen} className="modal-layout" shouldCloseOnOverlayClick={true}
+             onRequestClose={() => setModalIsOpen(false)}>
         {/* Header */}
         <h2>Select your region, currency and language.</h2>
 
@@ -197,9 +200,11 @@ const SettingsSelector = (): JSX.Element => {
         {/* Language */}
         <LanguageSelect language={selectedLanguage} onChange={setCacheSettings} />
 
-        {/* Close button */}
-        <button onClick={handleSave}>Save</button>
-        <button onClick={handleClose}>Cancel</button>
+        {/* Modal button */}
+        <div className="modal-button">
+          <button onClick={handleSave}>Save</button>
+          <button onClick={handleClose}>Cancel</button>
+        </div>
       </Modal>
     </div>
   );

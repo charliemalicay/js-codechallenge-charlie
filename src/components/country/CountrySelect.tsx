@@ -50,9 +50,9 @@ export const CountrySelect = ({
 
   // Render
   return (
-    <div>
+    <div className="modal-select">
       <label>
-        Country
+        <p>Country</p>
         <Select
           options={data}
           components={{ Option: CountrySelectOption }}
