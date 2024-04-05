@@ -31,10 +31,6 @@ const CurrencySelect = ({
 
   const defaultValue = { value: value, label: value };
 
-  useEffect(() => {
-    console.log("CurrencyData:", CurrencyData);
-  }, []);
-
   // Render
   return (
     <div>
