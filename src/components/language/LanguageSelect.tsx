@@ -1,11 +1,13 @@
 import ISO_6391_Languages from "iso-639-1";
 
 import Select from "react-select";
+import {AppSettingsTypes} from "../settings/SettingsSelector";
+import {CountryValueTypes} from "../country/CountrySelect";
 
 // Props
 interface LanguageSelectProps {
   language?: string;
-  onChange?: (language: string) => void;
+  onChange?: (language: (prevState: AppSettingsTypes) => { country: CountryValueTypes; currency: string; language: any }) => void;
 }
 
 // Constants
@@ -41,7 +43,10 @@ const LanguageSelect = ({
           options={data}
           defaultValue={defaultValue}
           onChange={(newValue: any) => {
-            if (onChange) onChange(newValue!.value);
+            if (onChange) onChange(
+                (prevState: AppSettingsTypes) => (
+                    {...prevState, language: newValue!.value}
+                ));
           }}
         />
       </label>

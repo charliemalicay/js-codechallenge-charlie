@@ -1,6 +1,7 @@
 import CurrencyData from "currency-codes/data";
 import Select from "react-select";
-import {useEffect} from "react";
+import {AppSettingsTypes} from "../settings/SettingsSelector";
+import {CountryValueTypes} from "../country/CountrySelect";
 
 // Props
 interface SetCurrencyDataTypes {
@@ -10,7 +11,7 @@ interface SetCurrencyDataTypes {
 
 interface CurrencySelectProps {
   value?: string;
-  onChange?: (currency: string) => void;
+  onChange?: (currency: (prevState: AppSettingsTypes) => { country: CountryValueTypes; currency: any; language: string }) => void;
 }
 
 // Constants
@@ -40,7 +41,10 @@ const CurrencySelect = ({
           options={data}
           defaultValue={defaultValue}
           onChange={(newValue: any) => {
-            if (onChange) onChange(newValue!.value);
+            if (onChange) onChange(
+                (prevState: AppSettingsTypes) => (
+                    {...prevState, currency: newValue!.value}
+                ));
           }}
         />
       </label>

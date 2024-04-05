@@ -109,8 +109,6 @@ const SettingsSelector = (): JSX.Element => {
   const [selectedCurrency, setCurrency] = React.useState<any>(DEFAULT_CURRENCY);
   const [selectedLanguage, setLanguage] = React.useState<any>(DEFAULT_LANGUAGE);
 
-  const [buttonRendered, setButtonRendered] = React.useState<boolean>(true);
-
   const [cacheSettings, setCacheSettings] = React.useState<AppSettingsTypes>({
     country: DEFAULT_COUNTRY,
     currency: DEFAULT_CURRENCY,
@@ -127,19 +125,25 @@ const SettingsSelector = (): JSX.Element => {
 
   const handleClose = () => {
     setModalIsOpen(false);
-    setCountry(cacheSettings.country);
-    setCurrency(cacheSettings.currency);
-    setLanguage(cacheSettings.language);
+    // setCountry(cacheSettings.country);
+    // setCurrency(cacheSettings.currency);
+    // setLanguage(cacheSettings.language);
   };
 
   const handleSave = () => {
     setModalIsOpen(false);
-    setCacheSettings({
-      country: selectedCountry,
-      currency: selectedCurrency,
-      language: selectedLanguage
-    });
-    setButtonRendered(true);
+
+    if (cacheSettings.country !== selectedCountry) {
+      setCountry(cacheSettings.country);
+    }
+
+    if (cacheSettings.currency !== selectedCurrency) {
+      setCurrency(cacheSettings.currency);
+    }
+
+    if (cacheSettings.language !== selectedLanguage) {
+      setLanguage(cacheSettings.language);
+    }
   }
 
   // const button = () => {
@@ -161,13 +165,15 @@ const SettingsSelector = (): JSX.Element => {
   //   );
   // };
 
-  React.useEffect(() => {
-    console.log("cacheSettings:", cacheSettings);
-  }, [cacheSettings]);
-
   const MemoSettingsButton = React.useMemo(() => {
-    return <SettingsButton currentCount={counter.current} />;
-  }, []);
+    return <SettingsButton
+        handleOpenModal={handleOpen}
+        country={selectedCountry}
+        currency={selectedCurrency}
+        language={selectedLanguage}
+        currentCount={counter.current}
+    />;
+  }, [selectedCountry, selectedCurrency, selectedLanguage]);
 
 
   // Render
@@ -177,40 +183,24 @@ const SettingsSelector = (): JSX.Element => {
 
       {MemoSettingsButton}
 
-      {/*<SettingsButton*/}
-      {/*    // handleOpenModal={handleOpen}*/}
-      {/*    // country={selectedCountry}*/}
-      {/*    // currency={selectedCurrency}*/}
-      {/*    // language={selectedLanguage}*/}
-      {/*    currentCount={counter.current}*/}
-      {/*/>*/}
-
-      {/*<SettingsButton*/}
-      {/*    handleOpenModal={handleOpen}*/}
-      {/*    country={selectedCountry}*/}
-      {/*    currency={selectedCurrency}*/}
-      {/*    language={selectedLanguage}*/}
-      {/*    currentCount={counter.current}*/}
-      {/*/>*/}
-
       {/* Modal */}
-      {/*<Modal isOpen={modalIsOpen}>*/}
-      {/*  /!* Header *!/*/}
-      {/*  <h2>Select your region, currency and language.</h2>*/}
+      <Modal isOpen={modalIsOpen}>
+        {/* Header */}
+        <h2>Select your region, currency and language.</h2>
 
-      {/*  /!* Country *!/*/}
-      {/*  <CountrySelect value={selectedCountry} onChange={setCacheSettings} />*/}
+        {/* Country */}
+        <CountrySelect value={selectedCountry} onChange={setCacheSettings} />
 
-      {/*  /!* Currency *!/*/}
-      {/*  <CurrencySelect value={selectedCurrency} onChange={setCurrency} />*/}
+        {/* Currency */}
+        <CurrencySelect value={selectedCurrency} onChange={setCacheSettings} />
 
-      {/*  /!* Language *!/*/}
-      {/*  <LanguageSelect language={selectedLanguage} onChange={setLanguage} />*/}
+        {/* Language */}
+        <LanguageSelect language={selectedLanguage} onChange={setCacheSettings} />
 
-      {/*  /!* Close button *!/*/}
-      {/*  <button onClick={handleSave}>Save</button>*/}
-      {/*  <button onClick={handleClose}>Cancel</button>*/}
-      {/*</Modal>*/}
+        {/* Close button */}
+        <button onClick={handleSave}>Save</button>
+        <button onClick={handleClose}>Cancel</button>
+      </Modal>
     </div>
   );
 };
