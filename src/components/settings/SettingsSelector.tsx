@@ -101,6 +101,12 @@ const SettingsSelector = (): JSX.Element => {
   const [selectedCurrency, setCurrency] = React.useState<any>(DEFAULT_CURRENCY);
   const [selectedLanguage, setLanguage] = React.useState<any>(DEFAULT_LANGUAGE);
 
+  const [cacheSettings, setCacheSettings] = React.useState<any>({
+    country: DEFAULT_COUNTRY,
+    currency: DEFAULT_CURRENCY,
+    language: DEFAULT_LANGUAGE
+  });
+
   // Render Counter
   const counter = useRef(0);
 
@@ -111,14 +117,18 @@ const SettingsSelector = (): JSX.Element => {
 
   const handleClose = () => {
     setModalIsOpen(false);
+    setCountry(cacheSettings.country);
+    setCurrency(cacheSettings.currency);
+    setLanguage(cacheSettings.language);
   };
 
   const handleSave = () => {
-    handleClose();
-
-    console.log("selectedCountry:", selectedCountry);
-    console.log("selectedCurrency:", selectedCurrency);
-    console.log("selectedLanguage:", selectedLanguage);
+    setModalIsOpen(false);
+    setCacheSettings({
+      country: selectedCountry,
+      currency: selectedCurrency,
+      language: selectedLanguage
+    });
   }
 
   const button = () => {
