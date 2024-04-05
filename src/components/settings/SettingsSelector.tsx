@@ -75,7 +75,7 @@ DESIRED SCENARIO
 - Eliminate any remaining instances of type `any`.
 
 OPTIONAL BONUS
-- Replace `any` in the `*.stories.tsx`  files with appropriate types.
+- Replace `any` in the `*.stories.tsx`  files with appropriate typings.
 --- [TASK] --- */
 
 /* --- [TASK] ---
@@ -108,9 +108,18 @@ const SettingsSelector = (): JSX.Element => {
   const handleOpen = () => {
     setModalIsOpen(true);
   };
+
   const handleClose = () => {
     setModalIsOpen(false);
   };
+
+  const handleSave = () => {
+    handleClose();
+
+    console.log("selectedCountry:", selectedCountry);
+    console.log("selectedCurrency:", selectedCurrency);
+    console.log("selectedLanguage:", selectedLanguage);
+  }
 
   const button = () => {
     // Increase render count.
@@ -147,7 +156,8 @@ const SettingsSelector = (): JSX.Element => {
         <LanguageSelect language={selectedLanguage} onChange={setLanguage} />
 
         {/* Close button */}
-        <button onClick={handleClose}>Close</button>
+        <button onClick={handleSave}>Save</button>
+        <button onClick={handleClose}>Cancel</button>
       </Modal>
     </div>
   );

@@ -1,7 +1,13 @@
 import CurrencyData from "currency-codes/data";
 import Select from "react-select";
+import {useEffect} from "react";
 
 // Props
+interface SetCurrencyDataTypes {
+  code: string
+  currency: string
+}
+
 interface CurrencySelectProps {
   value?: string;
   onChange?: (currency: string) => void;
@@ -16,13 +22,18 @@ const CurrencySelect = ({
   onChange,
 }: CurrencySelectProps) => {
   // Prepare data
-  const data = CurrencyData.map(({ code, currency }) => {
+  const data = CurrencyData.map(( {code, currency}: SetCurrencyDataTypes ) => {
     return {
       value: code + " - " + currency,
       label: code + " - " + currency,
     };
   });
+
   const defaultValue = { value: value, label: value };
+
+  useEffect(() => {
+    console.log("CurrencyData:", CurrencyData);
+  }, []);
 
   // Render
   return (
@@ -32,8 +43,8 @@ const CurrencySelect = ({
         <Select
           options={data}
           defaultValue={defaultValue}
-          onChange={(newValue) => {
-            onChange(newValue.value);
+          onChange={(newValue: any) => {
+            if (onChange) onChange(newValue!.value);
           }}
         />
       </label>

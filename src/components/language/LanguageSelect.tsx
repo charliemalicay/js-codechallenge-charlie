@@ -40,8 +40,8 @@ const LanguageSelect = ({
         <Select
           options={data}
           defaultValue={defaultValue}
-          onChange={(newValue) => {
-            onChange(newValue.value);
+          onChange={(newValue: any) => {
+            if (onChange) onChange(newValue!.value);
           }}
         />
       </label>
