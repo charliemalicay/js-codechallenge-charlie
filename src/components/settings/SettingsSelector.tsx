@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import Modal from "react-modal";
-import CountrySelect, { DEFAULT_COUNTRY } from "../country/CountrySelect";
+import CountrySelect, {CountryValueTypes, DEFAULT_COUNTRY} from "../country/CountrySelect";
 import LanguageSelect, { DEFAULT_LANGUAGE } from "../language/LanguageSelect";
 import CurrencySelect, { DEFAULT_CURRENCY } from "../currency/CurrencySelect";
+import SettingsButton from "../widgets/SettingsButton";
 
 /* --- [TASK] ---
 Changes on modal are only applied on SAVE
@@ -93,6 +94,13 @@ FURTHER DETAILS
 - Downgrading to React 17 is not an option 😉
 --- [TASK] --- */
 
+// Types
+export interface AppSettingsTypes {
+  country: CountryValueTypes
+  currency: string
+  language: string
+}
+
 // Component
 const SettingsSelector = (): JSX.Element => {
   // States
@@ -101,7 +109,9 @@ const SettingsSelector = (): JSX.Element => {
   const [selectedCurrency, setCurrency] = React.useState<any>(DEFAULT_CURRENCY);
   const [selectedLanguage, setLanguage] = React.useState<any>(DEFAULT_LANGUAGE);
 
-  const [cacheSettings, setCacheSettings] = React.useState<any>({
+  const [buttonRendered, setButtonRendered] = React.useState<boolean>(true);
+
+  const [cacheSettings, setCacheSettings] = React.useState<AppSettingsTypes>({
     country: DEFAULT_COUNTRY,
     currency: DEFAULT_CURRENCY,
     language: DEFAULT_LANGUAGE
@@ -129,46 +139,78 @@ const SettingsSelector = (): JSX.Element => {
       currency: selectedCurrency,
       language: selectedLanguage
     });
+    setButtonRendered(true);
   }
 
-  const button = () => {
-    // Increase render count.
-    counter.current++;
+  // const button = () => {
+  //   if (!buttonRendered) return ;
+  //
+  //   // Increase render count.
+  //   counter.current++;
+  //
+  //   // Log current render count.
+  //   console.log("Render count of button is: " + counter.current);
+  //
+  //   setButtonRendered(false);
+  //
+  //   /* Button */
+  //   return (
+  //     <button onClick={handleOpen}>
+  //       {selectedCountry.name} - ({selectedCurrency} - {selectedLanguage})
+  //     </button>
+  //   );
+  // };
 
-    // Log current render count.
-    console.log("Render count of button is: " + counter.current);
+  React.useEffect(() => {
+    console.log("cacheSettings:", cacheSettings);
+  }, [cacheSettings]);
 
-    /* Button */
-    return (
-      <button onClick={handleOpen}>
-        {selectedCountry.name} - ({selectedCurrency} - {selectedLanguage})
-      </button>
-    );
-  };
+  const MemoSettingsButton = React.useMemo(() => {
+    return <SettingsButton currentCount={counter.current} />;
+  }, []);
+
 
   // Render
   return (
     <div>
-      {button()}
+      {/*{button()}*/}
+
+      {MemoSettingsButton}
+
+      {/*<SettingsButton*/}
+      {/*    // handleOpenModal={handleOpen}*/}
+      {/*    // country={selectedCountry}*/}
+      {/*    // currency={selectedCurrency}*/}
+      {/*    // language={selectedLanguage}*/}
+      {/*    currentCount={counter.current}*/}
+      {/*/>*/}
+
+      {/*<SettingsButton*/}
+      {/*    handleOpenModal={handleOpen}*/}
+      {/*    country={selectedCountry}*/}
+      {/*    currency={selectedCurrency}*/}
+      {/*    language={selectedLanguage}*/}
+      {/*    currentCount={counter.current}*/}
+      {/*/>*/}
 
       {/* Modal */}
-      <Modal isOpen={modalIsOpen}>
-        {/* Header */}
-        <h2>Select your region, currency and language.</h2>
+      {/*<Modal isOpen={modalIsOpen}>*/}
+      {/*  /!* Header *!/*/}
+      {/*  <h2>Select your region, currency and language.</h2>*/}
 
-        {/* Country */}
-        <CountrySelect value={selectedCountry} onChange={setCountry} />
+      {/*  /!* Country *!/*/}
+      {/*  <CountrySelect value={selectedCountry} onChange={setCacheSettings} />*/}
 
-        {/* Currency */}
-        <CurrencySelect value={selectedCurrency} onChange={setCurrency} />
+      {/*  /!* Currency *!/*/}
+      {/*  <CurrencySelect value={selectedCurrency} onChange={setCurrency} />*/}
 
-        {/* Language */}
-        <LanguageSelect language={selectedLanguage} onChange={setLanguage} />
+      {/*  /!* Language *!/*/}
+      {/*  <LanguageSelect language={selectedLanguage} onChange={setLanguage} />*/}
 
-        {/* Close button */}
-        <button onClick={handleSave}>Save</button>
-        <button onClick={handleClose}>Cancel</button>
-      </Modal>
+      {/*  /!* Close button *!/*/}
+      {/*  <button onClick={handleSave}>Save</button>*/}
+      {/*  <button onClick={handleClose}>Cancel</button>*/}
+      {/*</Modal>*/}
     </div>
   );
 };

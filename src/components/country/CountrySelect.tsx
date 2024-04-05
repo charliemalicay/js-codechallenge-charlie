@@ -1,6 +1,7 @@
 import countries from "i18n-iso-countries";
 import Select from "react-select";
 import { CountrySelectOption } from "./CountrySelectOption";
+import {AppSettingsTypes} from "../settings/SettingsSelector";
 
 // Register countries
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
@@ -9,7 +10,7 @@ countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 // Please replace "any" with a proper type in this file (and where it is needed).
 
 // Props
-interface CountryValueTypes {
+export interface CountryValueTypes {
   name: string
   code: string
 }
@@ -21,7 +22,7 @@ interface CountryOptionsTypes {
 
 interface CountrySelectProps {
   value?: any;
-  onChange?: (value: CountryValueTypes) => void;
+  onChange?: (value: (prevState: AppSettingsTypes) => { country: any; currency: string; language: string }) => void;
 }
 
 // Constants
@@ -57,7 +58,8 @@ export const CountrySelect = ({
           components={{ Option: CountrySelectOption }}
           defaultValue={defaultValue}
           onChange={(newValue: any) => {
-            if (onChange) onChange(newValue!.value)
+            if (onChange) onChange((prevState: AppSettingsTypes) => ({
+              ...prevState, country: newValue!.value}))
           }}
         />
       </label>
