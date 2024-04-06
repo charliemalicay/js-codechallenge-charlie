@@ -1,3 +1,5 @@
+
+import * as React from 'react';
 import { OptionProps, components } from "react-select";
 
 /* --- [TASK] ---
@@ -21,9 +23,15 @@ FURTHER DETAILS
 
 // Component
 export const CountrySelectOption = (props: OptionProps<any>) => {
-  return (
-    <div>
-      <components.Option {...props} />
-    </div>
-  );
+    return (
+        <div>
+            <components.Option {...props}>
+                <div className="select-option">
+                    <img src={`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${props.data.value.code}.svg`}
+                         height="30" width="30" alt="country-icon"/>
+                    <p>{props.data.label}</p>
+                </div>
+            </components.Option>
+        </div>
+    );
 };

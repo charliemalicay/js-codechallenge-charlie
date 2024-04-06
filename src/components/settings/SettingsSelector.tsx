@@ -6,6 +6,7 @@ import CurrencySelect, { DEFAULT_CURRENCY } from "../currency/CurrencySelect";
 import SettingsButton from "../widgets/SettingsButton";
 
 import '../../styles/main.css';
+import '../../styles/select.css';
 
 /* --- [TASK] ---
 Changes on modal are only applied on SAVE
@@ -106,10 +107,13 @@ export interface AppSettingsTypes {
 // Component
 const SettingsSelector = (): JSX.Element => {
   // States
-  const [modalIsOpen, setModalIsOpen] = React.useState<any>(false);
-  const [selectedCountry, setCountry] = React.useState<any>(DEFAULT_COUNTRY);
-  const [selectedCurrency, setCurrency] = React.useState<any>(DEFAULT_CURRENCY);
-  const [selectedLanguage, setLanguage] = React.useState<any>(DEFAULT_LANGUAGE);
+  const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
+
+  const [selectedSettings, setSelectedSettings] = React.useState<AppSettingsTypes>({
+    country: DEFAULT_COUNTRY,
+    currency: DEFAULT_CURRENCY,
+    language: DEFAULT_LANGUAGE
+  });
 
   const [cacheSettings, setCacheSettings] = React.useState<AppSettingsTypes>({
     country: DEFAULT_COUNTRY,
@@ -127,24 +131,24 @@ const SettingsSelector = (): JSX.Element => {
 
   const handleClose = () => {
     setModalIsOpen(false);
-    // setCountry(cacheSettings.country);
-    // setCurrency(cacheSettings.currency);
-    // setLanguage(cacheSettings.language);
   };
 
   const handleSave = () => {
     setModalIsOpen(false);
 
-    if (cacheSettings.country !== selectedCountry) {
-      setCountry(cacheSettings.country);
+    if (cacheSettings.country !== selectedSettings.country) {
+      setSelectedSettings((prevState: AppSettingsTypes) =>
+          ({ ...prevState, country: selectedSettings.country }));
     }
 
-    if (cacheSettings.currency !== selectedCurrency) {
-      setCurrency(cacheSettings.currency);
+    if (cacheSettings.currency !== selectedSettings.currency) {
+      setSelectedSettings((prevState: AppSettingsTypes) =>
+          ({ ...prevState, currency: selectedSettings.currency}));
     }
 
-    if (cacheSettings.language !== selectedLanguage) {
-      setLanguage(cacheSettings.language);
+    if (cacheSettings.language !== selectedSettings.language) {
+      setSelectedSettings((prevState: AppSettingsTypes) =>
+          ({ ...prevState, language: selectedSettings.language }));
     }
   }
 
@@ -170,12 +174,12 @@ const SettingsSelector = (): JSX.Element => {
   const MemoSettingsButton = React.useMemo(() => {
     return <SettingsButton
         handleOpenModal={handleOpen}
-        country={selectedCountry}
-        currency={selectedCurrency}
-        language={selectedLanguage}
+        country={selectedSettings.country}
+        currency={selectedSettings.currency}
+        language={selectedSettings.language}
         currentCount={counter.current}
     />;
-  }, [selectedCountry, selectedCurrency, selectedLanguage]);
+  }, [selectedSettings.country, selectedSettings.currency, selectedSettings.language]);
 
 
   // Render
@@ -192,13 +196,13 @@ const SettingsSelector = (): JSX.Element => {
         <h2>Select your region, currency and language.</h2>
 
         {/* Country */}
-        <CountrySelect value={selectedCountry} onChange={setCacheSettings} />
+        <CountrySelect value={selectedSettings.country} onChange={setCacheSettings} />
 
         {/* Currency */}
-        <CurrencySelect value={selectedCurrency} onChange={setCacheSettings} />
+        <CurrencySelect value={selectedSettings.currency} onChange={setCacheSettings} />
 
         {/* Language */}
-        <LanguageSelect language={selectedLanguage} onChange={setCacheSettings} />
+        <LanguageSelect language={selectedSettings.language} onChange={setCacheSettings} />
 
         {/* Modal button */}
         <div className="modal-button">

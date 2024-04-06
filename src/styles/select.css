@@ -1,0 +1,15 @@
+
+.select-control-img {
+    margin-left: 10px;
+}
+
+.select-option {
+    display: flex;
+    flex-direction: row;
+    /*display: grid;*/
+    /*grid-template-columns: repeat(2, minmax(0, 1fr));*/
+    column-gap: 15px;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}

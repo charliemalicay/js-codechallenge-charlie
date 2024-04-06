@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from "@storybook/react";
 
-import CountrySelect from "./CountrySelect";
+import CountrySelect, {CountryValueTypes} from "./CountrySelect";
 
 // Settings
 export default {
