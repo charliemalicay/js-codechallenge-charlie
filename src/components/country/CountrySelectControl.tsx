@@ -11,8 +11,6 @@ export const CountrySelectControl = (props: ControlProps <any>) => {
         if (props.getValue().length > 0) {
             setCountryCodes(props.getValue()[0].value.code)
         }
-
-        console.log("CountryControl props:", props);
     }, [props]);
 
     return (

@@ -60,7 +60,7 @@ export const CountrySelect = ({
             defaultValue={defaultValue}
             onChange={(newValue: any) => {
               if (onChange) onChange((prevState: AppSettingsTypes) => ({
-                ...prevState, country: newValue!.value}))
+                ...prevState, country: newValue.value}))
             }}
         />
       </label>

@@ -136,21 +136,28 @@ const SettingsSelector = (): JSX.Element => {
   const handleSave = () => {
     setModalIsOpen(false);
 
+    console.log("cacheSettings: ", cacheSettings)
+    console.log("selectedSettings: ", selectedSettings)
+
     if (cacheSettings.country !== selectedSettings.country) {
       setSelectedSettings((prevState: AppSettingsTypes) =>
-          ({ ...prevState, country: selectedSettings.country }));
+          ({ ...prevState, country: cacheSettings.country }));
     }
 
     if (cacheSettings.currency !== selectedSettings.currency) {
       setSelectedSettings((prevState: AppSettingsTypes) =>
-          ({ ...prevState, currency: selectedSettings.currency}));
+          ({ ...prevState, currency: cacheSettings.currency}));
     }
 
     if (cacheSettings.language !== selectedSettings.language) {
       setSelectedSettings((prevState: AppSettingsTypes) =>
-          ({ ...prevState, language: selectedSettings.language }));
+          ({ ...prevState, language: cacheSettings.language }));
     }
   }
+
+  React.useEffect(() => {
+    console.log("selectedSettings:", selectedSettings)
+  }, [selectedSettings])
 
   // const button = () => {
   //   if (!buttonRendered) return ;
