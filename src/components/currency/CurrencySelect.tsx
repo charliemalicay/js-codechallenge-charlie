@@ -11,7 +11,7 @@ interface SetCurrencyDataTypes {
 
 interface CurrencySelectProps {
   value?: string;
-  onChange?: (currency: (prevState: AppSettingsTypes) => { country: CountryValueTypes; currency: any; language: string }) => void;
+  onChange?: (currency: (prevState: AppSettingsTypes) => { country: CountryValueTypes; currency: string; language: string }) => void;
 }
 
 // Constants

@@ -6,6 +6,20 @@ body {
     font-variation-settings: "wdth" 100;
 }
 
+.settings-button {
+    padding: 10px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-color: rgb(148 163 184);
+    border-style: solid;
+    border-radius: 10px;
+}
+
 .modal-layout {
     position: absolute;
     top: 50%;

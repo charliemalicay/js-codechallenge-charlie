@@ -7,7 +7,7 @@ import {CountryValueTypes} from "../country/CountrySelect";
 // Props
 interface LanguageSelectProps {
   language?: string;
-  onChange?: (language: (prevState: AppSettingsTypes) => { country: CountryValueTypes; currency: string; language: any }) => void;
+  onChange?: (language: (prevState: AppSettingsTypes) => { country: CountryValueTypes; currency: string; language: string }) => void;
 }
 
 // Constants
