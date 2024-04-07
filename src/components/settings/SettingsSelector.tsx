@@ -136,9 +136,6 @@ const SettingsSelector = (): JSX.Element => {
   const handleSave = () => {
     setModalIsOpen(false);
 
-    console.log("cacheSettings: ", cacheSettings)
-    console.log("selectedSettings: ", selectedSettings)
-
     if (cacheSettings.country !== selectedSettings.country) {
       setSelectedSettings((prevState: AppSettingsTypes) =>
           ({ ...prevState, country: cacheSettings.country }));
@@ -154,10 +151,6 @@ const SettingsSelector = (): JSX.Element => {
           ({ ...prevState, language: cacheSettings.language }));
     }
   }
-
-  React.useEffect(() => {
-    console.log("selectedSettings:", selectedSettings)
-  }, [selectedSettings])
 
   // const button = () => {
   //   if (!buttonRendered) return ;
